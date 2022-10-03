@@ -1,6 +1,5 @@
 using BlockchainTestProject.Application.Models;
 using BlockchainTestProject.Persistence;
-using LanguageExt.UnsafeValueAccess;
 using MediatR;
 using OneOf;
 using OneOf.Types;
@@ -23,13 +22,10 @@ public class GetNftDetailsQuery
             CancellationToken cancellationToken)
         {
             var walletOption = await _walletRepository.GetNftAsync(request.Query.TokenId);
-
-            if (walletOption.IsNone)
-            {
-                return new None();
-            }
             
-            return new GetNftDetailsQueryModel.Response(walletOption.ValueUnsafe().AddressId, request.Query.TokenId);
+            return walletOption.Match<OneOf<GetNftDetailsQueryModel.Response, None>>(
+                wallet => new GetNftDetailsQueryModel.Response(wallet.AddressId, request.Query.TokenId),
+                () => new None());
         }
     }
 }

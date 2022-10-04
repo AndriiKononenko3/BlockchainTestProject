@@ -15,3 +15,16 @@ Returns ownership information for the nft with the given id
 Wallet Ownership (`--wallet <address>`)
 Lists all NFTs currently owned by the wallet of the given address
 program `--wallet 0x...`
+
+Example command
+
+```dotnet BlockchainTestProject.Cli.dll --read-file transactions.json --wallet 0x3000000000000000000000000000000000000000 --nft 0xB000000000000000000000000000000000000000```
+
+result
+```Mint transaction processed.
+Mint transaction processed.
+Mint transaction processed.
+Burn transaction processed.
+Transfer transaction processed.
+Wallet 0x3000000000000000000000000000000000000000 2 Tokens: 0xC000000000000000000000000000000000000000 0xB000000000000000000000000000000000000000
+Token 0xB000000000000000000000000000000000000000 is owned by 0x3000000000000000000000000000000000000000```
